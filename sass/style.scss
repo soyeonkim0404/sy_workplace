@@ -1,0 +1,77 @@
+body{
+  background: #1c1f22;
+  padding:0;
+  margin:0;
+}
+
+$ham-trans : all .3s ease-in-out;
+
+.navIcon{
+  position:fixed;
+  left:15px;
+  top:15px;
+  width:50px;
+  height:50px;
+  cursor:pointer;
+  -webkit-transition: $ham-trans;
+  -moz-transition: $ham-trans;
+  -ms-transition: $ham-trans;
+  -o-transition: $ham-trans;
+  transition: $ham-trans;
+  z-index:20;
+  .bar{
+    width: 18px;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+    &::before, &::after{
+      content: '';
+      position: absolute;
+      width:18px;
+      height:2px;
+      background:#fff;
+      z-index:10;
+    }
+    &::before{
+      transform: rotate(0deg) translate(0px,-5px);
+    }
+    &::after{
+      transform: rotate(0deg) translate(0px,5px);
+    }
+  }
+}
+
+.sideBar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width:80px;
+  height:100vh;
+  border-right:1px solid #eee;
+  z-index:3;
+}
+
+#cate{
+  position: fixed;
+  top:0;
+  left:0;
+  width:420px;
+  height:100vh;
+  background:#1c1f22;
+  padding: 0;
+  margin: 0;
+  transform: translate(-100%, 0);
+  z-index: 9;
+}
+
+.main-head{
+  padding: 1vw 10vw;
+  .logo{
+    color:#fff;
+    font-size:30px;
+  }
+}
+
