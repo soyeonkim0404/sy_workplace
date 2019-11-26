@@ -9,3 +9,4 @@ navIcon.onclick = () => {
     navIcon.classList.toggle('active');
     cate.classList.toggle('active');
 };
+
