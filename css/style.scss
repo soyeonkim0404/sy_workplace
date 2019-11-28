@@ -151,8 +151,8 @@ h1,h2,h3,h4,h5,a{
     .box{
       display: flex;
       flex-direction: row;
-      align-items: center;
-      text-align: center;
+      justify-content:center;
+      align-items:center;
       width: 20%;
       height: 25vh;
       background: rgb(39,44,48);
