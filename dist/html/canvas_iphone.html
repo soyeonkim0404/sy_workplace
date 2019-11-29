@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iPhoneX visual</title>
+    <style>body{background:black;}
+        #cover-canvas{
+            position:fixed;
+            top:0;
+            left:0;
+        }
+        .video-wrapper{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            overflow:hidden;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100vw;
+            height:100vh;
+        }
+        #video{
+            transform:scale(1);
+        }</style>
+</head>
+<body>
+    <div class="video-wrapper">
+        <video muted="" playsinline="" loop="" autoplay="" src="https://images.apple.com/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/overview/primary/hero/large_2x.mp4" id="video"></video>
+    </div>
+    <canvas id="cover-canvas"></canvas>
+
+<script>'use strict';
+
+(function () {
+  var elemCanvas,
+      elemVideo,
+      elemPhone,
+      context,
+      windowWidth = 0,
+      // 브러우저  width
+  windowHeight = 0,
+      // 브라우저 height
+  canvasWidth = 0,
+      // 캔버스 폭
+  canvasHeight = 0,
+      // 캔버스 높이
+  scrollY = 0,
+      // 현재 스크롤 위치
+  relativeScrollY = 0,
+      // 각 키프레임에서 사용하는 상대적인 스크롤 위치
+  totalScrollHeight = 0,
+      // 스크롤 할수 있는 전체 높이
+  currentKeyframe = 0,
+      // 현재 키프레임 (0, 1)
+  phoneWidth = 1350,
+      // 아이폰 이미지 기본 크기 basic - 1380
+  phoneHeight = 2970,
+      // 아이폰 이미지 기본 크기 basic - 3000
+  resizeHandler,
+      scrollHandler,
+      render,
+      drawCanvas,
+      calcAnimationValue,
+      init,
+      pixelDuration = 0,
+      // 키프렘임 당 차지하는 스크롤 높이
+  prevDurations = 0,
+      keyframes = [{
+    animationValue: {
+      videoScale: [1, 2],
+      //[시작값, 애니메이션이 끝나는 값]
+      triangleMove: [0, 200],
+      rectangleMove: [0, 500]
+    }
+  }, {
+    animationValue: {
+      videoScale: [2, 0.5],
+      triangleMove: [200, 1000],
+      rectangleMove: [500, 500]
+    }
+  }],
+      elemBody = document.body,
+      elemCanvas = document.getElementById('cover-canvas');
+  context = elemCanvas.getContext('2d'); // canvas를 그릴 때 기본적으로 선언해줘야함
+
+  elemVideo = document.getElementById('video');
+
+  init = function init() {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+    resizeHandler();
+    render();
+    window.addEventListener('resize', function () {
+      requestAnimationFrame(resizeHandler);
+    });
+    window.addEventListener('scroll', function () {
+      requestAnimationFrame(scrollHandler);
+    });
+    elemPhone = document.createElement('img'); // canvas에서 이미지를 삽입할때 꼭 선언해야하는 명령어
+
+    elemPhone.src = '../images/iphone.png'; // 위에 명령어 입력 후 이미지 불러오기
+
+    elemPhone.addEventListener('load', function () {
+      drawCanvas();
+    });
+  };
+
+  resizeHandler = function resizeHandler() {
+    //브라우저 창 사이즈가 바뀔때,
+    var i;
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+    totalScrollHeight = 0; //스크롤을 할 수 있는 전체 높이
+
+    pixelDuration = 0.5 * windowHeight; // Duration : 애니메이션이 지속되는 시간을 의미, 윈도의 높이 절반 설정
+
+    for (i = 0; i < keyframes.length; i++) {
+      totalScrollHeight += pixelDuration;
+    }
+
+    totalScrollHeight += windowHeight;
+    elemBody.style.height = totalScrollHeight + 'px';
+    elemCanvas.width = canvasWidth = windowWidth * 2;
+    elemCanvas.height = canvasHeight = windowHeight * 2;
+    elemCanvas.style.width = windowWidth + 'px';
+    elemCanvas.style.height = windowHeight + 'px';
+  };
+
+  scrollHandler = function scrollHandler() {
+    scrollY = window.pageYOffset; //현재 스크롤 된 위치
+    //console.log(prevDurations);
+
+    if (scrollY < 0 || scrollY > totalScrollHeight - windowHeight) {
+      return; // 함수 종료
+    }
+
+    if (scrollY > pixelDuration + prevDurations) {
+      console.log(pixelDuration);
+      console.log(prevDurations);
+      prevDurations += pixelDuration;
+      currentKeyframe++;
+    } else if (scrollY < prevDurations) {
+      prevDurations -= pixelDuration;
+      currentKeyframe--;
+    }
+
+    relativeScrollY = scrollY - prevDurations;
+    render();
+  };
+
+  render = function render() {
+    var videoScale, triangleMove, rectangleMove;
+
+    if (keyframes[currentKeyframe]) {
+      videoScale = calcAnimationValue(keyframes[currentKeyframe].animationValue.videoScale);
+      triangleMove = calcAnimationValue(keyframes[currentKeyframe].animationValue.triangleMove);
+      rectangleMove = calcAnimationValue(keyframes[currentKeyframe].animationValue.rectangleMove);
+    } else {
+      return;
+    }
+
+    elemVideo.style.transform = 'scale(' + videoScale + ')';
+    context.clearRect(0, 0, canvasWidth, canvasHeight); //clearRect = canvas 지우기
+
+    if (elemPhone) {
+      drawCanvas(videoScale, triangleMove, rectangleMove);
+    }
+  };
+
+  calcAnimationValue = function calcAnimationValue(values) {
+    return relativeScrollY / pixelDuration * (values[1] - values[0]) + values[0];
+  };
+
+  drawCanvas = function drawCanvas(videoScale, triangleMove, rectangleMove) {
+    var videoScale = videoScale || 1,
+        triangleMove = triangleMove || 0,
+        rectangleMove = rectangleMove || 0;
+    context.save();
+    context.translate((canvasWidth - phoneWidth * videoScale) * 0.5, (canvasHeight - phoneHeight * videoScale) * 0.5);
+    context.drawImage(elemPhone, 0, 0, phoneWidth * videoScale, phoneHeight * videoScale); //elemPhone : 폰이미지를 담고있는..
+
+    context.restore();
+    context.fillStyle = 'black'; //context.fillStyle = 'red'; // 색상을 먼저 선언하고 canvas를 그려야함
+    //위 삼각형
+
+    context.beginPath();
+    context.moveTo(canvasWidth * 0.5 - 1500, -triangleMove - 1700); // canvasWidth * 0.5 -> 캔버스의 중앙 위치 를 의미
+
+    context.lineTo(canvasWidth * 0.5, canvasHeight * 0.5 - 150 - triangleMove); // lineto : 실제로 그리는 선
+
+    context.lineTo(canvasWidth * 0.5 + 1500, -triangleMove - 1700);
+    context.lineTo(canvasWidth * 0.5 - 1500, -triangleMove - 1700);
+    context.fill();
+    context.closePath(); //context.fillStyle = 'blue';
+    //아래 삼각형
+
+    context.beginPath();
+    context.moveTo(canvasWidth * 0.5 - 1500, canvasHeight + triangleMove + 1700); // canvasHeight * 0.5 -> 캔버스의 중앙 위치 를 의미
+
+    context.lineTo(canvasWidth * 0.5, canvasHeight * 0.5 + 150 + triangleMove);
+    context.lineTo(canvasWidth * 0.5 + 1500, canvasHeight + triangleMove + 1700);
+    context.lineTo(canvasWidth * 0.5 - 1500, canvasHeight + triangleMove + 1700);
+    context.fill();
+    context.closePath(); //context.fillStyle = 'green';
+    // 왼쪽 삼각형
+
+    context.beginPath();
+    context.moveTo(canvasWidth * 0.5 - 1700 - triangleMove, -1700);
+    context.lineTo(canvasWidth * 0.5 - 130 - triangleMove, canvasHeight * 0.5);
+    context.lineTo(canvasWidth * 0.5 - 1700 - triangleMove, canvasHeight + 1700);
+    context.lineTo(canvasWidth * 0.5 - 1700 - triangleMove, -1700);
+    context.fill();
+    context.closePath(); //context.fillStyle = 'yellow';
+    // 오른쪽 삼각형
+
+    context.beginPath();
+    context.moveTo(canvasWidth * 0.5 + 1700 + triangleMove, -1700);
+    context.lineTo(canvasWidth * 0.5 + 130 + triangleMove, canvasHeight * 0.5);
+    context.lineTo(canvasWidth * 0.5 + 1700 + triangleMove, canvasHeight + 1700);
+    context.lineTo(canvasWidth * 0.5 + 1700 + triangleMove, -1700);
+    context.fill();
+    context.closePath(); // 박스 상, 히
+    //console.log(canvasHeight);
+
+    context.fillRect(0, canvasHeight * 0.5 - 2600 - rectangleMove, canvasWidth, 2000);
+    context.fillRect(0, canvasHeight * 0.5 + 600 + rectangleMove, canvasWidth, 2000);
+  };
+
+  init();
+})();</script>
+</body>
+</html>
