@@ -27,10 +27,10 @@
     </style>
 </head>
 <body>
-    <div class="video-wrapper">
-        <video muted="" playsinline="" loop="" autoplay="" src="https://images.apple.com/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/overview/primary/hero/large_2x.mp4" id="video"></video>
-    </div>
-    <canvas id="cover-canvas"></canvas>
+<div class="video-wrapper">
+    <video muted="" playsinline="" loop="" autoplay="" src="https://images.apple.com/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/overview/primary/hero/large_2x.mp4" id="video"></video>
+</div>
+<canvas id="cover-canvas"></canvas>
 
 <script>
     'use strict';
@@ -69,7 +69,7 @@
                 },
                 {
                     animationValue : {
-                        videoScale: [2, 0.5],
+                        videoScale: [1, 0.5],
                         triangleMove: [200, 1000],
                         rectangleMove: [500, 500]
                     }
@@ -79,8 +79,8 @@
 
             elemBody = document.body,
             elemCanvas = document.getElementById('cover-canvas');
-            context = elemCanvas.getContext('2d'); // canvas를 그릴 때 기본적으로 선언해줘야함
-            elemVideo = document.getElementById('video');
+        context = elemCanvas.getContext('2d'); // canvas를 그릴 때 기본적으로 선언해줘야함
+        elemVideo = document.getElementById('video');
 
         init = function () {
             windowWidth = window.innerWidth;
@@ -116,8 +116,8 @@
             totalScrollHeight += windowHeight;
 
             elemBody.style.height = totalScrollHeight + 'px';
-            elemCanvas.width = canvasWidth = windowWidth * 2;
-            elemCanvas.height = canvasHeight = windowHeight * 2;
+            elemCanvas.width = canvasWidth = windowWidth * 2.2;
+            elemCanvas.height = canvasHeight = windowHeight * 2.2;
             elemCanvas.style.width = windowWidth + 'px';
             elemCanvas.style.height = windowHeight + 'px';
         };
@@ -132,8 +132,8 @@
             }
 
             if(scrollY > pixelDuration + prevDurations){
-                console.log(pixelDuration);
-                console.log(prevDurations);
+                //console.log(pixelDuration);
+                //console.log(prevDurations);
                 prevDurations += pixelDuration;
                 currentKeyframe++;
             }else if(scrollY < prevDurations){
