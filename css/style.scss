@@ -13,6 +13,20 @@ $ham-trans : all .3s ease-in-out;
 $ham-bg : #000000;
 $text-default : #ffffff;
 
+::-webkit-scrollbar{
+  width:0;
+}
+
+#progressbar{
+  position: fixed;
+  top:0;
+  right: 0;
+  width: 15px;
+  height: 100%;
+  border-radius: 15px;
+  background: linear-gradient(to top, #fcb045, #fd1d1d, #833ab4);
+}
+
 .navIcon,
 .navIcon .bar,
 .navIcon .bar::before,
@@ -73,7 +87,7 @@ h1,h2,h3,h4,h5,a{
   background:$ham-bg;
   left: 0;
   top: 0;
-  width:4.2vw;
+  width:80px;
   height:100vh;
   z-index:3;
 }
@@ -119,6 +133,7 @@ h1,h2,h3,h4,h5,a{
 }
 
 .mainHead{
+  margin: 1%;
   .logo{
     color:$text-default;
     font-size: 2.7rem;
@@ -128,7 +143,7 @@ h1,h2,h3,h4,h5,a{
     font-family: 'Kanit', sans-serif;
     font-size:2.3rem;
     font-weight:500;
-    margin-top: 4vh;
+    margin-top: 1vh;
   }
 }
 
@@ -148,23 +163,22 @@ h1,h2,h3,h4,h5,a{
   .work{
     margin-top: 4vh;
     display:flex;
+    flex-wrap: wrap;
+    width:100%;
     .box{
       display: flex;
-      flex-direction: row;
-      justify-content:center;
-      align-items:center;
-      width: 20%;
+      justify-content: center;
+      align-items: center;
+      width: 23%;
       height: 25vh;
-      background: rgb(39,44,48);
-      background: linear-gradient(132deg, rgba(39,44,48,1) 0%, rgba(28,31,34,1) 100%);
+      background: #272c30;
+      background: linear-gradient(132deg, #272c30 0%, #1c1f22 100%);
       border-radius: 1.5vw;
       text-decoration: none;
-      color:$text-default;
+      color: #ffffff;
       font-size: 1.2rem;
-      font-weight:bold;
-    }
-    .box + .box{
-      margin-left:2vw;
+      font-weight: bold;
+      margin: 1%;
     }
   }
 }

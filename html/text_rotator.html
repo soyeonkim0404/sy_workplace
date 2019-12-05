@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>text rotate effect</title>
+    <link rel="stylesheet" href="../../sy_workplace/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,900&display=swap" rel="stylesheet">
+    <style>
+        .textEffect{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow:hidden;
+        }
+        h2{
+            position: relative;
+            font-size: 10vw;
+            color:#444;
+            width: 80%;
+        }
+        h2 span{
+            color: yellow;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="textEffect">
+        <h2 id="text">I'm
+            <span style="display: initial">so yeon</span>
+            <span>smart</span>
+            <span>young</span>
+            <span>good</span>
+            <span>healthy</span>
+            <span>perfect</span>
+            <span>creative</span>
+        </h2>
+    </div>
+    <script type="text/javascript">
+        const text = document.getElementById('text');
+        let word = text.getElementsByTagName('span');
+        
+        let i =0;
+        
+        function rotator() {
+            word[i].style.display = 'none';
+            i = (i + 1) % word.length;
+            word[i].style.display = 'initial';
+        }
+        setInterval(rotator, 900);
+    </script>
+</body>
+</html>

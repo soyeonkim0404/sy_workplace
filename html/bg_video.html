@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>background video effect</title>
+    <link rel="stylesheet" href="../../sy_workplace/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            font-family: 'Montserrat', sans-serif;
+        }
+        .banner{
+            position: absolute;
+            width:100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .banner video{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .banner .text{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            mix-blend-mode: screen;
+        }
+        .banner .text p{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            width:100%;
+            font-size: 13vw;
+            text-align: center;
+            font-weight:900;
+            text-transform: uppercase;
+            color:#000;
+            line-height:1;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <video autoplay muted loop>
+            <source src="../video/video_effect.mp4" type="video/mp4">
+        </video>
+        <div class="text">
+            <p>soyeon<br/>in<br/>las vegas</p>
+        </div>
+    </div>
+</body>
+</html>
