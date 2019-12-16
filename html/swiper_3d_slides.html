@@ -30,12 +30,12 @@
 
         .swiper-slide .card .slideText{
             position: relative;
-            width:100%;
-            height: 200px;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000;
+            background: #732e2e;
         }
 
         .swiper-slide .card .slideText h2{
@@ -47,7 +47,14 @@
             width:400px;
         }
         .swiper-pagination{
-            display:none;
+            position: relative;
+            bottom:0 !important;
+            margin-top: 15px;
+        }
+        .swiper-pagination-bullet{
+            width:20px;
+            height: 20px;
+            background: #fff;
         }
     </style>
 </head>
@@ -61,18 +68,12 @@
                 <div class="slideText">
                     <h2>slide one</h2>
                 </div>
-                <div class="content">
-                    Your interest inspires me. Your interest inspires me. Your interest inspires me. Your interest inspires me.
-                </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="card">
                 <div class="slideText">
                     <h2>slide two</h2>
-                </div>
-                <div class="content">
-                    Your interest inspires me. Your interest inspires me. Your interest inspires me. Your interest inspires me.
                 </div>
             </div>
         </div>
@@ -81,18 +82,12 @@
                 <div class="slideText">
                     <h2>slide three</h2>
                 </div>
-                <div class="content">
-                    Your interest inspires me. Your interest inspires me. Your interest inspires me. Your interest inspires me.
-                </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="card">
                 <div class="slideText">
                     <h2>slide four</h2>
-                </div>
-                <div class="content">
-                    Your interest inspires me. Your interest inspires me. Your interest inspires me. Your interest inspires me.
                 </div>
             </div>
         </div>
@@ -101,9 +96,6 @@
                 <div class="slideText">
                     <h2>slide five</h2>
                 </div>
-                <div class="content">
-                    Your interest inspires me. Your interest inspires me. Your interest inspires me. Your interest inspires me.
-                </div>
             </div>
         </div>
         <div class="swiper-slide">
@@ -111,32 +103,34 @@
                 <div class="slideText">
                     <h2>slide six</h2>
                 </div>
-                <div class="content">
-                    Your interest inspires me. Your interest inspires me. Your interest inspires me. Your interest inspires me.
-                </div>
             </div>
         </div>
     </div>
     <div class="swiper-pagination"></div>
 </div>
 
-<script src="../js/jquery-1.10.2.min.js"></script>
+
+<!--<script src="../js/jquery-1.10.2.min.js"></script>-->
 <script src="../js/swiper.min.js"></script>
 
 <script>
+    // swiper api : 커버플로우 효과 이용하기 : https://swiperjs.com/api/#coverflow-effect
+
+    console.log('일반적인 슬라이드는 물론이고, 반응형 풀 스크린, 세로 방향 슬라이드, 어러개 슬라이드의 그룹화 적용, 페이드 효과, 3d효과 등 기능이 다양하다. 키보드나 마우스 휠로 작동되는 슬라이드를 제작할 수 있고, 기본에 충실하면서도 사용이 간편한 슬라이드 플러그인이다.')
+
+
     var swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
+        effect: 'coverflow', // 커버플로우 효과 사용
+        centeredSlides: true, // active 된것이 중앙으로 노출
+        slidesPerView: 'auto', // 화면에 보여지는 갯수
         coverflowEffect: {
-            rotate: 30,
-            stretch: 0,
-            depth: 500,
-            modifier: 1,
+            rotate: 30, // 슬라이더 회전 각 : 클수록 슬라이딩시 회전이 커짐
+            stretch: 0,  // 슬라이더간 거리(픽셀) : 클수록 슬라이더가 서로 많이 겹침
+            depth: 500, // 깊이 효과값 : 클수록 멀리있는 느낌이 강해짐
+            modifier: 1, // 효과 배수 : 위 숫자값들에 이 값을 곱하기 처리하여 효과를 강하게 처리함(잘 사용하지 않는듯)
             slideShadows : true,
         },
-        pagination: {
+        pagination: { // 페이징 설정
             el: '.swiper-pagination',
         },
     });

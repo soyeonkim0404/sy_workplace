@@ -4,8 +4,12 @@ setTimeout(() => {
 
 const navIcon = document.querySelector('.navIcon');
 const cate = document.getElementById('cate');
+const allBody = document.body;
+
+console.log(allBody);
 
 navIcon.onclick = () => {
+
     //console.log('ddd');
     navIcon.classList.toggle('active');
     cate.classList.toggle('active');
