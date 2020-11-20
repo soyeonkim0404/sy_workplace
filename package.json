@@ -1,16 +1,25 @@
 {
   "name": "sy_workplace",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "soyeon kim",
   "license": "ISC",
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
     "sass": "^1.23.7"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soyeonkim0404/sy_workplace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/soyeonkim0404/sy_workplace/issues"
+  },
+  "homepage": "https://github.com/soyeonkim0404/sy_workplace#readme",
+  "description": ""
 }
